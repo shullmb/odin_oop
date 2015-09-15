@@ -6,6 +6,7 @@ class Dungeon
 	def initialize(player_name)
 		@player = Player.new(player_name)
 		@rooms = []
+		@directions = []
 	end
 
 	def start(location)
@@ -33,6 +34,7 @@ class Dungeon
 
 	def add_room(reference, name, description, connections)
 		@rooms << Room.new(reference, name, description, connections)
+		@directions << reference
 	end
 
 	class Player
@@ -43,7 +45,7 @@ class Dungeon
 			@mana = mana
 		end
 
-		def hit(damage)
+		def hit_by_monster(damage)
 			@hp -= damage
 
 			puts "You are hit for #{damage} points."
@@ -104,16 +106,26 @@ malistan.start(:cave_mouth)
 
 loop do 
 
-	puts "Which direction?"
+	puts "Which direction would you like to go?"
 
-	direction = gets.chomp
+	direction = gets.chomp.downcase.to_sym
+
+	if malistan.find_room_in_direction(direction).to_s != ""
+
+		malistan.go(direction.to_sym)
+	elsif direction == :exit
+		puts "Exiting"
+		break
+	else
+		puts "I'm sorry. That is not a valid command."
+		next
+	end
 
 	break if direction == "exit"
 
-	malistan.go(direction.to_sym)
 
 	if malistan.player.location == :deathpit
-		malistan.player.hit(1000)
+		malistan.player.hit_by_monster(1000)
 		break
 	end
 
