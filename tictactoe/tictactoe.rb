@@ -10,19 +10,21 @@ class Board
 
 	def start
 		puts "Welcome!"
-		puts "Player 1, please choose a name: "
+		print "Player 1, please choose a name: "
 		name_1 = gets.chomp.to_s
-		puts "and a symbol: "
+		print "and a symbol: "
 		sym_1 = gets.chomp.upcase
 		@player1 = Player.new(name_1, sym_1)
-		puts "Player 2, please choose a name:"
+		print "Player 2, please choose a name: "
 		name_2 = gets.chomp.to_s
-		puts "and a symbol: "
+		print "and a symbol: "
 		sym_2 = gets.chomp.upcase
 		@player2 = Player.new(name_2, sym_2)
 
 		display
 	end
+
+	#need to break start up into multiple methods and add validation
 
 	def display
 		puts %Q{
