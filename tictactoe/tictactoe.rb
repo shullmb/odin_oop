@@ -16,7 +16,7 @@ class Board
 		sym_1 = gets.chomp.upcase
 		@player1 = Player.new(name_1, sym_1)
 		puts "Player 2, please choose a name:"
-		name_2 = gets.chomp.upcase
+		name_2 = gets.chomp.to_s
 		puts "and a symbol: "
 		sym_2 = gets.chomp.upcase
 		@player2 = Player.new(name_2, sym_2)
@@ -26,8 +26,8 @@ class Board
 
 	def display
 		puts %Q{
-#{player1}: #{sym_1}
-#{player2}: #{sym_2}
+#{@player1.name}: #{@player1.sym}
+#{@player2.name}: #{@player2.sym}
 		 --- --- ---
 		| #{grid_1[0]} | #{grid_1[1]} | #{grid_1[2]} | 1
 		 --- --- ---
@@ -56,8 +56,4 @@ class Board
 
 		end
 	end
-end
-
-until victory do 
-	
 end
