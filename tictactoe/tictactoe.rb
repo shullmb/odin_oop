@@ -24,58 +24,18 @@ class Board
 		display
 	end
 
-	#need to break start up into multiple methods and add validation
-
-	# def prompt
-	# 	print "Please choose a name: "
-	# 	name = gets.chomp.to_s
-	# 	print "and a symbol: "
-	# 	sym = gets.chomp.upcase
-	# 	@player = Player.new(name, sym[0])
-	# end
-	
-	def turn
+	def prompt
 		#get grid coordinate
 		print " select your coordinate: "
 		move = gets.chomp.upcase
-		execute_turn(move)
+
+		# need to alternate
+		@player1.execute_turn(move)
+		@player2.execute_turn(move)
 
 		display
 	end
 	
-	def execute_turn(move)
-		case move[0]
-		when "A"
-			case move[1]
-			when 1
-				grid_1[0] = @sym
-			when 2
-				grid_1[1] = @sym
-			when 3
-				grid_1[2] = @sym
-			end
-		when "B"
-			case move[1]
-			when 1
-				grid_2[0] = @sym
-			when 2
-				grid_2[1] = @sym
-			when 3
-				grid_2[2] = @sym
-			end
-		when "C"
-			case move[1]
-			when 1
-				grid_3[0] = @sym
-			when 2
-				grid_3[1] = @sym
-			when 3
-				grid_3[2] = @sym
-			end
-		else 
-			puts "that is not a valid selection"
-		end
-	end
 
 	def display
 		puts %Q{
@@ -100,9 +60,46 @@ class Board
 	class Player
 		attr_accessor :name
 		attr_reader :sym
+		
+		@@players = []
+
 		def initialize(name, sym)
 			@name = name
 			@sym = sym
+		end
+		
+		def execute_turn(move)
+			case move[0]
+			when "A"
+				case move[1]
+				when 1
+					grid_1[0] = @sym
+				when 2
+					grid_1[1] = @sym
+				when 3
+					grid_1[2] = @sym
+				end
+			when "B"
+				case move[1]
+				when 1
+					grid_2[0] = @sym
+				when 2
+					grid_2[1] = @sym
+				when 3
+					grid_2[2] = @sym
+				end
+			when "C"
+				case move[1]
+				when 1
+					grid_3[0] = @sym
+				when 2
+					grid_3[1] = @sym
+				when 3
+					grid_3[2] = @sym
+				end
+			else 
+				puts "that is not a valid selection"
+			end
 		end
 	end
 end
