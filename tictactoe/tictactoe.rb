@@ -1,10 +1,13 @@
 
 class Board
-	attr_accessor :grid_1, :grid_2, :grid_3
+	attr_accessor :grid_1, :grid_2, :grid_3, :turn
+	
+
 	def initialize
 		@grid_1 = [" ", " ", " "]
 		@grid_2 = [" ", " ", " "]
 		@grid_3 = [" ", " ", " "]
+		@turn = 0
 			
 	end	
 
@@ -22,25 +25,32 @@ class Board
 		@player2 = Player.new(name_2, sym_2[0])
 
 		display
+		@turn += 1
 	end
 
-	def prompt
-		#get grid coordinate
-		print " select your coordinate: "
-		move = gets.chomp.upcase
+	def prompt(player)		
+		print " #{player} select your coordinate: "
+		@move = gets.chomp.upcase
+	end
 
-		# need to alternate
-		@player1.execute_turn(move)
-		@player2.execute_turn(move)
+	def take_turn
+		if @turn%2 == 1
+			prompt(@player1.name)
+			@player1.execute_turn(@move)
+		else
+			prompt(@player2.name)
+			@player2.execute_turn(@move)
+		end
 
 		display
+		@turn += 1
 	end
-	
 
 	def display
 		puts %Q{
 #{@player1.name}: #{@player1.sym}
 #{@player2.name}: #{@player2.sym}
+Turn: #{@turn}
 		 --- --- ---
 		| #{grid_1[0]} | #{grid_1[1]} | #{grid_1[2]} | A
 		 --- --- ---
@@ -102,4 +112,13 @@ class Board
 			end
 		end
 	end
+end
+
+game = Board.new
+game.start
+
+while  game.turn < 10
+
+	game.take_turn
+
 end
