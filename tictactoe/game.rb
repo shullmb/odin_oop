@@ -2,7 +2,10 @@ module TicTacToe
 
 	class Board
 		attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3, :player1, :player2, :coordinate
+		
 		@@turn = 1
+		@@victory = false
+
 		def initialize
 			@a1 = ' '
 			@a2 = ' '
@@ -25,14 +28,14 @@ module TicTacToe
 			puts %Q{
 			#{player1.name}: #{player1.sym}
 			#{player2.name}: #{player2.sym}
-				 --- --- ---
-				| #{@a1} | #{@a2} | #{@a3} |
-				 --- --- ---
-				| #{@b1} | #{@b2} | #{@b3} |	
-				 --- --- ---
-				| #{@c1} | #{@c2} | #{@c3} |
-				 --- --- ---	
-			
+				  --- --- ---
+				A| #{@a1} | #{@a2} | #{@a3} |
+				  --- --- ---
+				B| #{@b1} | #{@b2} | #{@b3} |	
+				  --- --- ---
+				C| #{@c1} | #{@c2} | #{@c3} |
+				  --- --- ---	
+				   1   2   3
 			turn: #{@@turn}}
 		end
 
@@ -46,11 +49,11 @@ module TicTacToe
 			@c1 = ' '
 			@c2 = ' '
 			@c3 = ' '
-			@@turn = 0
+			@@turn = 1
 			display
 		end
 
-		def victory_check
+		def victory_check?
 			victory_cases = [[@a1,@a2,@a3],
 							 [@b1,@b2,@b3],
 							 [@c1,@c2,@c3],
@@ -63,6 +66,7 @@ module TicTacToe
 			victory_cases.each_with_index do |coord, index|
 				if (victory_cases[index][0] == victory_cases[index][1] && victory_cases[index][0] == victory_cases[index][2]) && (victory_cases[index][0] != " ")
 					puts "Victory!"
+					return true
 				end
 			end
 		end
@@ -83,30 +87,35 @@ module TicTacToe
 			@@turn += 1
 		end
 
+		def try_again
+			puts " Invalid selection. Try again."
+			@@turn -= 1
+			
+		end 
+
 		def make_move(coordinate, sym)
 			case coordinate
-				when "a1"
-					self.a1 ||= sym
-				when "a2"
-					self.a2 = sym
-				when "a3"
-					self.a3 = sym
-				when "b1"
-					self.b1 = sym
-				when "b2"
-					self.b2 = sym
-				when "b3"
-					self.b3 = sym
-				when "c1"
-					self.c1 = sym
-				when "c2"
-					self.c2 = sym
-				when "c3"
-					self.c3 = sym
-				else
-					puts "Try again"
-					prompt
-				end
+			when "a1"
+				self.a1 == " "? self.a1 = sym : try_again	
+			when "a2"
+				self.a2 == " "? self.a2 = sym : try_again
+			when "a3"
+				self.a3 == " "? self.a3 = sym : try_again
+			when "b1"
+				self.b1 == " "? self.b1 = sym : try_again
+			when "b2"
+				self.b2 == " "? self.b2 = sym : try_again
+			when "b3"
+				self.b3 == " "? self.b3 = sym : try_again
+			when "c1"
+				self.c1 == " "? self.c1 = sym : try_again
+			when "c2"
+				self.c2 == " "? self.c2 = sym : try_again
+			when "c3"
+				self.c3 == " "? self.c3 = sym : try_again
+			else
+				try_again
+			end
 			display
 		end
 	end
@@ -129,6 +138,25 @@ module TicTacToe
 
 			@game.display
 		end 
+
 	end
 
 end
+
+new = TicTacToe::Game.new
+
+while new.game.victory_check? != true
+	new.game.prompt
+end
+
+print "Would you like to play again? "
+
+answer = gets.chomp.downcase[0]
+
+if answer == "y"
+	new.game.reset
+	# need to reinitialize game
+else
+	puts "Thank you for playing"
+end
+		
