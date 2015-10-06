@@ -1,6 +1,8 @@
 #Scrape Frontpage of Wikipedia
 
+
 require 'rubygems'
+#will not function on Windows -- works on linux 
 require 'rest-client'
 
 wiki_url = "http://en.wikipedia.org/"
