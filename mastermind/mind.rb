@@ -1,11 +1,11 @@
 module Mastermind
 	class Board
-		attr_accessor :pattern, :a, :b, :c, :d
+		attr_accessor :pattern, :proposed, :a, :b, :c, :d
 		@@options = ["R","B","Y","W"]
 		@@guess = 0
 		
 		def initialize
-			@pattern = {a: " ", b: " ", c: " ", d: " "}
+			@pattern = {a: nil, b: nil, c: nil, d: nil}
 			set_pattern
 		end
 
@@ -23,7 +23,10 @@ module Mastermind
 		end
 
 		def compare
-			
+			if self.proposed[0] == self.pattern[:a]
+
+
+			end
 		end
 
 		private
