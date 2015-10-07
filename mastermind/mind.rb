@@ -24,7 +24,7 @@ module Mastermind
 
 		def compare
 			if self.proposed[0] == self.pattern[:a]
-
+				puts "match"
 
 			end
 		end
