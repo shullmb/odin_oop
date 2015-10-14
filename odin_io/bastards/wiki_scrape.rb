@@ -1,7 +1,7 @@
 #Scrape Frontpage of Wikipedia
 
-require 'rubygems'
-require 'rest-client'
+require_relative 'rubygems'
+require_relative 'rest-client'
 
 wiki_url = "http://en.wikipedia.org/"
 wiki_local_file = "wikipage.html"
