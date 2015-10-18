@@ -1,11 +1,10 @@
 module Mastermind
 	class Board
-		attr_accessor :pattern, :proposed, :guess, :a, :b, :c, :d
+		attr_accessor :pattern, :proposed, :guess
 		@@options = ["R","G","B","Y","W"]
 		@@screen_width = 100
 		
 		def initialize
-			#@pattern = {a: nil, b: nil, c: nil, d: nil}
 			@pattern = Array.new(4)
 			@guess = 0
 			set_pattern
@@ -46,7 +45,7 @@ module Mastermind
 			||   ||   ||
 			  ---  ---
 			 }
-			puts "Guesses left: #{@@guess}".center(@@screen_width)
+			puts "Guesses left: #{@guess}".center(@@screen_width)
 			puts "Proposed: #{self.proposed.join}".center(@@screen_width)			
 		end
 
@@ -81,4 +80,4 @@ module Mastermind
 	end
 
 end
-			#puts "|| #{self.pattern[:a]} || #{self.pattern[:b]} || #{self.pattern[:c]} || #{self.pattern[:d]} ||".center(@@screen_width)
+			
