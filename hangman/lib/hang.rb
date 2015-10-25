@@ -4,7 +4,7 @@ module Hangman
 
 		def initialize
 			@dictionary = File.open("../dict/5desk.txt", "r")
-
+			word_selector
 		end	
 
 		#protected
