@@ -1,7 +1,15 @@
 # Hangman #
 
-require_relative 'lib/hang.rb'
+require './lib/hang.rb'
 
 game = Hangman::Game.new
 
-game.setup_board
+while game.victory == false do
+
+	game.prompt
+	game.compare
+	game.display
+	game.end_game
+
+
+end
