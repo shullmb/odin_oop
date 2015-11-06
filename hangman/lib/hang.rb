@@ -27,7 +27,7 @@ module Hangman
 		def prompt
 			puts "Letters guessed: #{@guessed_letters.join(" ")}"
 
-			print "Guess a letter:"
+			print "\n\nGuess a letter:"
 			@guess = gets.downcase.chomp
 
 			@guessed_letters << @guess
@@ -50,6 +50,7 @@ module Hangman
 		end
 
 		def display
+			puts "\n\n"
 			puts @word_obscured.join
 			puts "\n\nYou have #{@guesses_remaining} guesses remaining."
 		end
